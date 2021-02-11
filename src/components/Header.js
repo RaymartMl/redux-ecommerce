@@ -10,13 +10,13 @@ export default function Header() {
         <div className="space-x-5">
           <a
             href="#example"
-            class="transition border-b-2 border-primary text-black"
+            className="transition border-b-2 border-primary text-black"
           >
             Home
           </a>
           <a
             href="#example"
-            class="transition border-b-2 border-transparent hover:border-primary"
+            className="transition border-b-2 border-transparent hover:border-primary"
           >
             Store
           </a>
