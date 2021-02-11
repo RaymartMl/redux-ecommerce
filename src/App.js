@@ -1,10 +1,16 @@
-import React from "react";
+import Layout from "./components/Layout";
+import ProductDetail from "./components/ProductDetail";
 import Home from "./pages/Home";
+import Store from "./pages/Store";
+import Cart from "./pages/Cart";
 
 export default function App() {
   return (
-    <div className="">
+    <Layout>
       <Home />
-    </div>
+      <Store />
+      <ProductDetail />
+      <Cart />
+    </Layout>
   );
 }
