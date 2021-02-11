@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 
 export default function ProductDetail() {
+  const history = useHistory();
   return (
     <>
       <div className="container mx-auto">
         <div className="max-w-5xl p-7 mx-auto bg-white rounded">
-          <a href="#link" className=" mb-2 ml-10">
-            🔙 Back
-          </a>
+          <button
+            onClick={() => history.goBack()}
+            className="flex  items-center mb-2 ml-10"
+          >
+            <BiArrowBack className="inline-block mr-2" /> Back
+          </button>
           <div className="flex justify-center p-5 ">
             <img src="/placeholder.jpg" alt="product" className="h-96" />
             <div className="flex flex-col p-10 max-w-prose">

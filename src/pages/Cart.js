@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InputCounter } from "../components/ProductDetail";
+import { InputCounter } from "./ProductDetail";
 
 export default function Cart() {
   return (

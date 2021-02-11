@@ -1,8 +1,8 @@
 import React from "react";
-
+import { FiShoppingCart } from "react-icons/fi";
 export default function ProductCard() {
   return (
-    <a href="#example" className="text-black bg-white rounded group">
+    <a href="product/:id" className="text-black bg-white rounded group">
       <div className="relative">
         <img
           src="/placeholder.jpg"
@@ -14,7 +14,10 @@ export default function ProductCard() {
           className="absolute left-0 right-0 justify-between hidden px-10 py-5 text-black transition bg-white  top-52 group-hover:flex"
         >
           <p className="text-primary">Add to Cart</p>
-          <p>logo</p>
+          <FiShoppingCart
+            className="inline-block text-primary"
+            size="1.25rem"
+          />
         </a>
       </div>
       <div className="px-6 py-10">

@@ -1,5 +1,7 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
+import { Link } from "react-router-dom";
+import { BiDownArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
 export default function Home() {
   return (
@@ -17,17 +19,21 @@ export default function Home() {
         </p>
 
         <div className="space-x-5">
-          <a
-            href="#example"
+          <Link
+            to="/store"
             className="px-24 py-4 tracking-wider text-offWhite bg-black border-2 border-black rounded hover:bg-primary hover:border-primary"
           >
             Shop Now
-          </a>
+          </Link>
           <a
             href="#featured"
-            className="py-4 tracking-wider text-black border-2 border-black rounded px-14 hover:border-primary"
+            className="inline-flex items-center py-4 tracking-wider text-black border-2 border-black rounded px-12 hover:border-primary"
           >
-            See Featured Products
+            <span>See Featured Products</span>
+            <BiDownArrowAlt
+              className="inline-block ml-2 animate-bounce text-primary"
+              size="1.25rem"
+            />
           </a>
         </div>
       </section>
@@ -49,10 +55,11 @@ export default function Home() {
               ))}
           </div>
           <a
-            href="#more"
-            className="block text-xl font-light tracking-widest text-center"
+            href="/store"
+            className=" items-center block text-xl font-light tracking-widest text-center"
           >
-            See More{" "}
+            <span>See More</span>
+            <BiRightArrowAlt className="inline-block ml-2" />
           </a>
         </div>
       </section>
