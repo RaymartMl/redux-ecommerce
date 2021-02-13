@@ -1,5 +1,3 @@
-// products fetch in the api
-
 import {
   createAsyncThunk,
   createSelector,
