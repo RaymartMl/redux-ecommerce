@@ -23,11 +23,15 @@ export default function Header() {
           >
             Store
           </Link>
-          <Link to="/cart">
+          <Link to="/cart" className="relative">
             <FiShoppingCart
-              className="inline-block ml-4 text-primary"
-              size="1.25rem"
+              className=" inline-block ml-4 text-primary"
+              size="1.40rem"
             />
+
+            <div class="-bottom-3 left-10 absolute px-2 py-1 text-xs text-offWhite bg-primary inline-block rounded-full">
+              1
+            </div>
           </Link>
         </div>
       </div>
