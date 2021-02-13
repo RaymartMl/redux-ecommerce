@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { InputCounter } from "./ProductDetail";
 
 export default function Cart() {
   return (
-    <div className="container p-10 mx-auto">
+    <div className="container  mx-auto">
       <div className="">
         <div className="overflow-auto sm:rounded mb-10">
           <table className="min-w-full divide-y divide-primary ">
@@ -108,9 +109,12 @@ export default function Cart() {
             <button className="p-4 px-8 tracking-wider text-offWhite border-2 border-black hover:border-primary bg-black rounded hover:bg-primary">
               Checkout
             </button>
-            <button className="p-4 px-8 tracking-wider   text-black border-2 border-black rounded  hover:border-primary">
+            <Link
+              to="/store"
+              className="p-4 px-8 tracking-wider   text-black border-2 border-black rounded  hover:border-primary"
+            >
               Shop More
-            </button>
+            </Link>
           </div>
         </div>
       </div>
