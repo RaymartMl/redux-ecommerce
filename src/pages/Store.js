@@ -17,8 +17,8 @@ export default function Store() {
         <div className="grid grid-cols-3 gap-6 mb-12">
           {Array(12)
             .fill(null)
-            .map((_) => (
-              <ProductCard />
+            .map((_, index) => (
+              <ProductCard key={index} />
             ))}
         </div>
       </section>

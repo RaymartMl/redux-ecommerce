@@ -10,84 +10,90 @@ export default function Cart() {
           <table className="min-w-full divide-y divide-primary ">
             <thead className="text-xs font-medium text-left uppercase bg-white tracking wider">
               <tr className="p-6">
-                <th scope="col" class="p-6">
+                <th scope="col" className="p-6">
                   Product
                 </th>
-                <th scope="col" class="p-6">
+                <th scope="col" className="p-6">
                   Unit Price
                 </th>
-                <th scope="col" class="p-6">
+                <th scope="col" className="p-6">
                   Quantity
                 </th>
-                <th scope="col" class="p-6">
+                <th scope="col" className="p-6">
                   Total Price
                 </th>
-                <th scope="col" class="p-6">
-                  <span class="sr-only">Delete</span>
+                <th scope="col" className="p-6">
+                  <span className="sr-only">Delete</span>
                 </th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-black divide-opacity-25">
+            <tbody className="bg-white divide-y divide-black divide-opacity-25">
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-40 w-40">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 h-40 w-40">
                       <img
-                        class="h-40 mx-auto"
+                        className="h-40 mx-auto"
                         src="./placeholder.jpg"
                         alt=""
                       />
                     </div>
-                    <div class="ml-4">
-                      <p class="text-sm font-medium text-black">
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-black">
                         Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
                       </p>
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <p className="text-sm "> ₱ 109.95</p>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <InputCounter className="" />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                   ₱ 109.95
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
+                  <a
+                    href="#delete"
+                    className="text-indigo-600 hover:text-indigo-900"
+                  >
                     Delete
                   </a>
                 </td>
               </tr>
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-40 w-40">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 h-40 w-40">
                       <img
-                        class="h-40 mx-auto"
+                        className="h-40 mx-auto"
                         src="./placeholder.jpg"
                         alt=""
                       />
                     </div>
-                    <div class="ml-4">
-                      <p class="text-sm font-medium text-black">
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-black">
                         Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
                       </p>
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <p className="text-sm "> ₱ 109.95</p>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <InputCounter className="" />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                   ₱ 109.95
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
+                  <a
+                    href="#delete"
+                    className="text-indigo-600 hover:text-indigo-900"
+                  >
                     Delete
                   </a>
                 </td>

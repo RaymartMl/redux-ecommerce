@@ -50,8 +50,8 @@ export default function Home() {
           <div className="grid grid-cols-3 gap-6 mb-12">
             {Array(6)
               .fill(null)
-              .map((_) => (
-                <ProductCard />
+              .map((_, index) => (
+                <ProductCard key={index} />
               ))}
           </div>
           <a
@@ -70,8 +70,7 @@ export default function Home() {
           Make your shopping experience more awesome
         </h2>
         <p className="mb-12 tracking-wide">
-          Know when the latest trends, coupons and discounts straight to your
-          inbox
+          Get the latest trends, coupons and discounts straight to your inbox
         </p>
         <form>
           <input

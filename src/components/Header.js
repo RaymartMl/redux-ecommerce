@@ -24,7 +24,10 @@ export default function Header() {
             Store
           </Link>
           <Link to="/cart">
-            <FiShoppingCart className="inline-block ml-4" size="1.25rem" />
+            <FiShoppingCart
+              className="inline-block ml-4 text-primary"
+              size="1.25rem"
+            />
           </Link>
         </div>
       </div>
