@@ -5,26 +5,30 @@ import Cart from "./pages/Cart";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProductDetail from "./pages/ProductDetail";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 export default function App() {
   return (
-    <Router>
-      <Layout>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/store">
-            <Store />
-          </Route>
-          <Route path="/cart">
-            <Cart />
-          </Route>
-          <Route path="/product/:productId">
-            <ProductDetail />
-          </Route>
-        </Switch>
-      </Layout>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/store">
+              <Store />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+            <Route path="/product/:productId">
+              <ProductDetail />
+            </Route>
+          </Switch>
+        </Layout>
+      </Router>
+    </Provider>
   );
 }

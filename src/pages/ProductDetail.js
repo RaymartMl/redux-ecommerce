@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { productSelector } from "../store/products";
 
 export default function ProductDetail() {
   const history = useHistory();
+  const { productId } = useParams();
+
+  const product = useSelector(productSelector(parseInt(productId, 10)));
+
   return (
     <>
       <div className="container mx-auto">
@@ -15,20 +21,16 @@ export default function ProductDetail() {
             <BiArrowBack className="inline-block mr-2" /> Back
           </button>
           <div className="flex justify-center p-5 ">
-            <img src="/placeholder.jpg" alt="product" className="h-96" />
+            <img src={product.image} alt="product" className="h-96" />
             <div className="flex flex-col p-10 max-w-prose">
               <div className="flex-1">
                 <h2 className="mb-6 text-2xl font-bold tracking-wide text-black">
-                  Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+                  {product.title}
                 </h2>
-                <p>
-                  Your perfect pack for everyday use and walks in the forest.
-                  Stash your laptop (up to 15 inches) in the padded sleeve, your
-                  everyday
-                </p>
+                <p>{product.description}</p>
               </div>
               <div className="flex items-center justify-around">
-                <p className="text-xl font-bold">₱ 109.95</p>
+                <p className="text-xl font-bold">₱{product.price}</p>
                 <div className="space-x-4 flex items-center">
                   <InputCounter />
                   <button className="p-4 tracking-wider text-offWhite border-2 border-black hover:border-primary bg-black rounded hover:bg-primary">

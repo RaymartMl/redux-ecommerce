@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { Link } from "react-router-dom";
 import { BiDownArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  featuredProductsSelector,
+  fetchProducts,
+  productsSelector,
+} from "../store/products";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const products = useSelector(featuredProductsSelector);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  console.log(products);
+
   return (
     <div className="">
       {/* Hero Section */}
@@ -48,19 +63,24 @@ export default function Home() {
             Featured Products
           </h2>
           <div className="grid grid-cols-3 gap-6 mb-12">
-            {Array(6)
+            {/* {Array(6)
               .fill(null)
               .map((_, index) => (
                 <ProductCard key={index} />
+              ))} */}
+
+            {products &&
+              products.map((product) => (
+                <ProductCard key={product.id} product={product} />
               ))}
           </div>
-          <a
-            href="/store"
+          <Link
+            to="/store"
             className=" items-center block text-xl font-light tracking-widest text-center"
           >
             <span>See More</span>
             <BiRightArrowAlt className="inline-block ml-2" />
-          </a>
+          </Link>
         </div>
       </section>
 

@@ -2,14 +2,18 @@ import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-export default function ProductCard() {
+export default function ProductCard({ product }) {
   return (
-    <Link to="product/:id" className="text-black bg-white rounded group">
+    <Link
+      to={`/product/${product.id}`}
+      className="text-black bg-white rounded group"
+    >
       <div className="relative">
         <img
-          src="/placeholder.jpg"
+          // src="/placeholder.jpg"
+          src={product.image}
           alt="product"
-          className="relative m-2 mx-auto transform rounded-t h-60 group-hover:scale-105"
+          className="relative m-4 mx-auto transform rounded-t h-60 group-hover:scale-105"
         />
         <button
           // href="#react"
@@ -28,10 +32,10 @@ export default function ProductCard() {
       </div>
       <div className="px-6 py-10">
         <p className="mb-2 font-bold tracking-wide text-center">
-          Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+          {product.title}
         </p>
         <p className="inline-block mx-auto border-b-2 border-primary">
-          ₱ 109.95
+          ₱ {product.price}
         </p>
       </div>
     </Link>
