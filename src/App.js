@@ -3,32 +3,37 @@ import Home from "./pages/Home";
 import Store from "./pages/Store";
 import Cart from "./pages/Cart";
 
+import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProductDetail from "./pages/ProductDetail";
-import { Provider } from "react-redux";
-import store from "./store/store";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "./store/products";
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   return (
-    <Provider store={store}>
-      <Router>
-        <Layout>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/store">
-              <Store />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-            <Route path="/product/:productId">
-              <ProductDetail />
-            </Route>
-          </Switch>
-        </Layout>
-      </Router>
-    </Provider>
+    <Router>
+      <Layout>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/store">
+            <Store />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+          <Route path="/product/:productId">
+            <ProductDetail />
+          </Route>
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
