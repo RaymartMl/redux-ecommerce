@@ -4,7 +4,7 @@ import ProductCard from "../components/ProductCard";
 import { productsSelector } from "../store/products";
 
 export default function Store() {
-  const { loading, data: products, error } = useSelector(productsSelector);
+  const { data: products } = useSelector(productsSelector);
 
   return (
     <>
@@ -19,10 +19,13 @@ export default function Store() {
         </div>
 
         <div className="grid gap-6 mb-12 sm:grid-cols-2 md:grid-cols-3">
-          {products &&
-            products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          {products.length
+            ? products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            : Array(12)
+                .fill(0)
+                .map((_) => <ProductCard product={{}} loading />)}
         </div>
       </section>
     </>

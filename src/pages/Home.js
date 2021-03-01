@@ -52,10 +52,15 @@ export default function Home() {
             Featured Products
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
-            {products &&
-              products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            {products.length
+              ? products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              : Array(6)
+                  .fill(0)
+                  .map((_, index) => (
+                    <ProductCard key={index} product={{}} loading />
+                  ))}
           </div>
           <Link
             to="/store"
