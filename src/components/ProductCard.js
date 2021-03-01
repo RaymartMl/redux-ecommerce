@@ -1,25 +1,26 @@
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addOrUpdate } from "../store/cart";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, className }) {
+  const dispatch = useDispatch();
   return (
     <Link
       to={`/product/${product.id}`}
-      className="text-black bg-white rounded group"
+      className={`text-black bg-white rounded group ${className}`}
     >
-      <div className="relative">
+      <div className="relative m-4">
         <img
-          // src="/placeholder.jpg"
           src={product.image}
           alt="product"
-          className="relative m-4 mx-auto transform rounded-t h-60 group-hover:scale-105"
+          className="mx-auto transform rounded-t h-60 max-w-full group-hover:scale-105"
         />
         <button
-          // href="#react"
           onClick={(e) => {
             e.preventDefault();
-            alert("Product Added to cart");
+            dispatch(addOrUpdate({ productId: product.id, quantity: 1 }));
           }}
           className="absolute w-full focus:outline-none left-0 right-0 justify-between hidden px-10 py-5 text-black transition bg-white  top-52 group-hover:flex"
         >
@@ -30,8 +31,8 @@ export default function ProductCard({ product }) {
           />
         </button>
       </div>
-      <div className="px-6 py-10">
-        <p className="mb-2 font-bold tracking-wide text-center">
+      <div className="  px-6 py-8 text-center">
+        <p className="mb-4 font-bold text-sm tracking-wide text-center overflow-ellipsis line-clamp-2">
           {product.title}
         </p>
         <p className="inline-block mx-auto border-b-2 border-primary">

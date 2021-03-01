@@ -1,34 +1,24 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
-import { fetchProducts, productsSelector } from "../store/products";
+import { productsSelector } from "../store/products";
 
 export default function Store() {
-  const dispatch = useDispatch();
   const { loading, data: products, error } = useSelector(productsSelector);
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
 
   return (
     <>
-      <section className="container mx-auto p-10">
+      <section className="container p-10 mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-black text-4xl mb-4 tracking-wider font-light">
+          <h2 className="mb-4 text-4xl font-light tracking-wider text-black">
             Shop Now
           </h2>
-          <p className="tracking-wide ">
+          <p className="sm:tracking-wide">
             We ensure quality products and superb customer experience
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-6 mb-12">
-          {/* {Array(12)
-            .fill(null)
-            .map((_, index) => (
-              <ProductCard key={index} />
-            ))} */}
+        <div className="grid gap-6 mb-12 sm:grid-cols-2 md:grid-cols-3">
           {products &&
             products.map((product) => (
               <ProductCard key={product.id} product={product} />

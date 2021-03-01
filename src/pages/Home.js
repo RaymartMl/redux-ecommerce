@@ -1,31 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProductCard from "../components/ProductCard";
 import { Link } from "react-router-dom";
 import { BiDownArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  featuredProductsSelector,
-  fetchProducts,
-  productsSelector,
-} from "../store/products";
+import { useSelector } from "react-redux";
+import { featuredProductsSelector } from "../store/products";
 
 export default function Home() {
-  const dispatch = useDispatch();
   const products = useSelector(featuredProductsSelector);
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-  console.log(products);
 
   return (
     <div className="">
       {/* Hero Section */}
-      <section className=" container mx-auto min-h-screen p-20 pb-10 text-center">
-        <h1 className="mb-10 text-6xl font-light tracking-widest text-black">
+      <section className="container min-h-screen p-10 md:p-20 pb-10 mx-auto text-center ">
+        <h1 className="mb-10 text-6xl font-light leading-snug tracking-widest text-black">
           Shop with{" "}
-          <span className="inline-block px-2 py-1 text-offWhite bg-primary">
+          <span className="inline-block px-4 text-offWhite bg-primary">
             confidence
           </span>
         </h1>
@@ -33,16 +22,16 @@ export default function Home() {
           Makes your shopping easy, fast & enjoyable
         </p>
 
-        <div className="space-x-5">
+        <div className="flex flex-col justify-center space-y-2 sm:space-y-0 sm:space-x-5 sm:flex-row items-center">
           <Link
             to="/store"
-            className="px-24 py-4 tracking-wider text-offWhite bg-black border-2 border-black rounded hover:bg-primary hover:border-primary"
+            className="sm:px-16 md:px-24 py-5 self-stretch  tracking-wider bg-black border-2 border-black rounded text-offWhite hover:bg-primary hover:border-primary"
           >
             Shop Now
           </Link>
           <a
             href="#featured"
-            className="inline-flex items-center py-4 tracking-wider text-black border-2 border-black rounded px-12 hover:border-primary"
+            className="sm:px-3 md:px-10 py-5 self-stretch inline-flex items-center  tracking-wider justify-center text-center text-black border-2 border-black rounded hover:border-primary"
           >
             <span>See Featured Products</span>
             <BiDownArrowAlt
@@ -55,20 +44,14 @@ export default function Home() {
 
       {/* Featured Section */}
       <section
-        className="p-20 pb-10 mb-10 text-offWhite bg-black text"
+        className="p-20 pb-10 mb-10 bg-black text-offWhite text"
         id="featured"
       >
         <div className="container mx-auto">
           <h2 className="mb-10 text-3xl tracking-wider text-center">
             Featured Products
           </h2>
-          <div className="grid grid-cols-3 gap-6 mb-12">
-            {/* {Array(6)
-              .fill(null)
-              .map((_, index) => (
-                <ProductCard key={index} />
-              ))} */}
-
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             {products &&
               products.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -76,7 +59,7 @@ export default function Home() {
           </div>
           <Link
             to="/store"
-            className=" items-center block text-xl font-light tracking-widest text-center"
+            className="items-center block text-xl font-light tracking-widest text-center "
           >
             <span>See More</span>
             <BiRightArrowAlt className="inline-block ml-2" />
@@ -85,22 +68,22 @@ export default function Home() {
       </section>
 
       {/* Email Section */}
-      <section className="container mx-auto p-10 pb-20 text-center">
-        <h2 className="mb-6 text-3xl tracking-wider text-primary">
+      <section className="container p-10 pb-20 mx-auto text-center">
+        <h2 className="mb-6 text-3xl md:tracking-wider text-primary">
           Make your shopping experience more awesome
         </h2>
-        <p className="mb-12 tracking-wide">
+        <p className="mb-12 md:tracking-wide">
           Get the latest trends, coupons and discounts straight to your inbox
         </p>
-        <form>
+        <form className="flex flex-col sm:flex-row justify-center items-center">
           <input
             type="email"
-            className="inline-block p-4 w-full max-w-sm mr-4 border-2 border-black rounded "
+            className="inline-block w-full sm:max-w-sm p-4 mb-4 sm:mb-0 sm:mr-4 border-2 border-black rounded "
             placeholder="Email Address"
           />
           <button
             type="submit"
-            className="p-4 px-8 tracking-wider text-offWhite border-2 border-black hover:border-primary bg-black rounded hover:bg-primary"
+            className="p-4 sm:px-2  md:px-8 tracking-wider self-stretch bg-black border-2 border-black rounded text-offWhite hover:border-primary hover:bg-primary"
           >
             Subscribe Now
           </button>

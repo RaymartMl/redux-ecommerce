@@ -1,26 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { BiTrash } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  addOrUpdate,
+  getCartProducts,
+  getGrossPrice,
+  getTotalPrice,
+} from "../store/cart";
 
-import { InputCounter } from "./ProductDetail";
+import InputCounter from "../components/InputCounter";
+import { removeProduct } from "../store/cart";
 
 export default function Cart() {
+  const products = useSelector(getCartProducts);
+  const grossPrice = useSelector(getGrossPrice);
   return (
-    <div className="container  mx-auto">
+    <div className="container mx-auto">
       <div className="">
-        <div className="overflow-auto sm:rounded mb-10">
-          <table className="min-w-full divide-y divide-primary ">
+        <div className="mb-10 overflow-auto sm:rounded">
+          <table className="min-w-full divide-y divide-primary">
             <thead className="text-xs font-medium text-left uppercase bg-white tracking wider">
-              <tr className="p-6">
-                <th scope="col" className="p-6">
+              <tr className="text-center">
+                <th scope="col" className="p-2">
                   Product
                 </th>
-                <th scope="col" className="p-6">
+                <th scope="col" className="p-2">
+                  Product Name
+                </th>
+                <th scope="col" className="p-2">
                   Unit Price
                 </th>
-                <th scope="col" className="p-6">
+                <th scope="col" className="p-2">
                   Quantity
                 </th>
-                <th scope="col" className="p-6">
+                <th scope="col" className="p-2">
                   Total Price
                 </th>
                 <th scope="col" className="p-6">
@@ -29,89 +43,28 @@ export default function Cart() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-black divide-opacity-25">
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 h-40 w-40">
-                      <img
-                        className="h-40 mx-auto"
-                        src="./placeholder.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-black">
-                        Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <p className="text-sm "> ₱ 109.95</p>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <InputCounter className="" />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                  ₱ 109.95
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <a
-                    href="#delete"
-                    className="text-indigo-600 hover:text-indigo-900"
-                  >
-                    Delete
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 h-40 w-40">
-                      <img
-                        className="h-40 mx-auto"
-                        src="./placeholder.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-black">
-                        Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <p className="text-sm "> ₱ 109.95</p>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <InputCounter className="" />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                  ₱ 109.95
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <a
-                    href="#delete"
-                    className="text-indigo-600 hover:text-indigo-900"
-                  >
-                    Delete
-                  </a>
-                </td>
-              </tr>
+              {products.map(({ product, quantity }) => (
+                <CartProduct
+                  key={product.id}
+                  product={product}
+                  quantity={quantity}
+                />
+              ))}
             </tbody>
           </table>
         </div>
 
-        <div className="sm:rounded flex items-center justify-between p-10 bg-white">
-          <p className="font-bold text-lg">Total: ₱ 109.95</p>
+        <div className="sticky bottom-0 left-0 flex flex-col sm:flex-row items-center justify-between w-full  bg-white p-5 sm:rounded md:p-10">
+          <p className="text-lg font-bold mb-4 sm:mb-0">
+            Total: ₱ {grossPrice}
+          </p>
           <div className="space-x-4">
-            <button className="p-4 px-8 tracking-wider text-offWhite border-2 border-black hover:border-primary bg-black rounded hover:bg-primary">
+            <button className="p-4 px-8 tracking-wider bg-black border-2 border-black rounded text-offWhite hover:border-primary hover:bg-primary">
               Checkout
             </button>
             <Link
               to="/store"
-              className="p-4 px-8 tracking-wider   text-black border-2 border-black rounded  hover:border-primary"
+              className="p-4 px-8 tracking-wider text-black border-2 border-black rounded hover:border-primary"
             >
               Shop More
             </Link>
@@ -119,5 +72,58 @@ export default function Cart() {
         </div>
       </div>
     </div>
+  );
+}
+
+function CartProduct({ product, quantity }) {
+  const dispatch = useDispatch();
+  const totalPrice = useSelector(getTotalPrice(product.id));
+
+  const [value, setValue] = useState(quantity);
+  const quantityDifference = value - quantity;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    quantityDifference &&
+      dispatch(
+        addOrUpdate({ productId: product.id, quantity: quantityDifference })
+      );
+  }
+  return (
+    <tr className="px-6 py-4">
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex items-center">
+          <div className="flex-shrink-0 w-40 h-40">
+            <img className="h-40 mx-auto" src={product.image} alt="" />
+          </div>
+        </div>
+      </td>
+      <td className="px-6 py-4">
+        <p className="text-sm font-medium text-black">{product.title}</p>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <p className="text-sm "> ₱ {product.price}</p>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <form onSubmit={handleSubmit}>
+          <InputCounter
+            value={value}
+            onIncrement={() => setValue(value + 1)}
+            onDecrement={() => value > 1 && setValue(value - 1)}
+          />
+        </form>
+      </td>
+      <td className="px-6 py-4 text-sm text-black whitespace-nowrap">
+        ₱ {totalPrice}
+      </td>
+      <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
+        <button
+          className="focus:outline-none hover:text-primary"
+          onClick={() => dispatch(removeProduct({ productId: product.id }))}
+        >
+          <BiTrash className="inline-block" size="1.25rem" />
+        </button>
+      </td>
+    </tr>
   );
 }

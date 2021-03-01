@@ -25,13 +25,13 @@ const productSlice = createSlice({
     },
     [fetchProducts.fulfilled]: (state, action) => {
       if (state.loading === "pending") {
-        state.loading = "idle";
+        state.loading = "fulfilled";
         state.data = action.payload;
       }
     },
     [fetchProducts.rejected]: (state, action) => {
       if (state.loading === "pending") {
-        state.loading = "idle";
+        state.loading = "error";
         state.data = [];
         state.error = action.error;
       }
