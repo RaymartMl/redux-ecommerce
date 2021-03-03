@@ -4,12 +4,7 @@ import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: [
-    { productId: 1, quantity: 3 },
-    { productId: 3, quantity: 1 },
-    { productId: 11, quantity: 1 },
-    { productId: 14, quantity: 1 },
-  ],
+  initialState: [],
   reducers: {
     addOrUpdate(cart, action) {
       const { productId, quantity } = action.payload;
@@ -35,7 +30,7 @@ export const getCartProducts = createSelector(
   (state) => state.cart,
   (state) => state.products,
   (cart, products) => {
-    if (products.loading !== "fulfilled") return [];
+    if (products.loading !== "fulfilled") return -1;
 
     return cart.map((listing) => ({
       product: products.data?.find(
@@ -63,7 +58,7 @@ export const getTotalPrice = (productId) =>
       const quantity = cart.find((product) => product.productId === productId)
         .quantity;
 
-      return unitPrice * quantity;
+      return Math.round(unitPrice * quantity);
     }
   );
 
