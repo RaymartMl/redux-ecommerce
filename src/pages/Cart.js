@@ -104,7 +104,12 @@ function CartProduct({ product, quantity }) {
         </div>
       </td>
       <td className="px-6 py-4">
-        <p className="text-sm font-medium text-black">{product.title}</p>
+        <Link
+          to={`/product/${product.id}`}
+          className="text-sm font-medium text-black"
+        >
+          {product.title}
+        </Link>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <p className="text-sm "> ₱ {product.price}</p>
