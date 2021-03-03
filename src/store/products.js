@@ -53,7 +53,11 @@ export const featuredProductsSelector = createSelector(
 export const productSelector = (productId) =>
   createSelector(
     (state) => state.products,
-    (products) => products.data?.find((product) => product.id === productId)
+    (products) => {
+      if (!products.data.length) return;
+
+      return products.data?.find((product) => product.id === productId) || -1;
+    }
   );
 
 // export const { getProductById } = productSlice.actions;
