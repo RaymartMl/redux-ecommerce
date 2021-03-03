@@ -12,51 +12,52 @@ import {
 import InputCounter from "../components/InputCounter";
 import { removeProduct } from "../store/cart";
 import Loading from "../components/Loading";
+import NotFound from "../components/NotFound";
 
 export default function Cart() {
   const products = useSelector(getCartProducts);
   const grossPrice = useSelector(getGrossPrice);
+
+  if (products === -1) return <Loading />;
+  if (!products.length) return <NotFound title="No Product in Cart." />;
+
   return (
     <div className="container mx-auto">
       <div className="">
         <div className="mb-10 overflow-auto sm:rounded">
-          {products.length ? (
-            <table className="min-w-full divide-y divide-primary">
-              <thead className="text-xs font-medium text-left uppercase bg-white tracking wider">
-                <tr className="text-center">
-                  <th scope="col" className="p-2">
-                    Product
-                  </th>
-                  <th scope="col" className="p-2">
-                    Product Name
-                  </th>
-                  <th scope="col" className="p-2">
-                    Unit Price
-                  </th>
-                  <th scope="col" className="p-2">
-                    Quantity
-                  </th>
-                  <th scope="col" className="p-2">
-                    Total Price
-                  </th>
-                  <th scope="col" className="p-6">
-                    <span className="sr-only">Delete</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-black divide-opacity-25">
-                {products.map(({ product, quantity }) => (
-                  <CartProduct
-                    key={product.id}
-                    product={product}
-                    quantity={quantity}
-                  />
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <Loading />
-          )}
+          <table className="min-w-full divide-y divide-primary">
+            <thead className="text-xs font-medium text-left uppercase bg-white tracking wider">
+              <tr className="text-center">
+                <th scope="col" className="p-2">
+                  Product
+                </th>
+                <th scope="col" className="p-2">
+                  Product Name
+                </th>
+                <th scope="col" className="p-2">
+                  Unit Price
+                </th>
+                <th scope="col" className="p-2">
+                  Quantity
+                </th>
+                <th scope="col" className="p-2">
+                  Total Price
+                </th>
+                <th scope="col" className="p-6">
+                  <span className="sr-only">Delete</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-black divide-opacity-25">
+              {products.map(({ product, quantity }) => (
+                <CartProduct
+                  key={product.id}
+                  product={product}
+                  quantity={quantity}
+                />
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="sticky bottom-0 left-0 flex flex-col sm:flex-row items-center justify-between w-full  bg-white p-5 sm:rounded md:p-10">

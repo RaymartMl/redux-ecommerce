@@ -1,4 +1,5 @@
 import Layout from "./components/Layout";
+import NotFound from "./components/NotFound";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import Cart from "./pages/Cart";
@@ -31,6 +32,9 @@ export default function App() {
           </Route>
           <Route path="/product/:productId">
             <ProductDetail />
+          </Route>
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       </Layout>
