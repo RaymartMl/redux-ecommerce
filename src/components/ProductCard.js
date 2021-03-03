@@ -7,7 +7,6 @@ import { addOrUpdate } from "../store/cart";
 
 export default function ProductCard({ product, className, loading }) {
   const dispatch = useDispatch();
-  console.log(loading);
   return (
     <Link
       to={`/product/${product.id}`}
