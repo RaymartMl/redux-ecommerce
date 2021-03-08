@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { featuredProductsSelector } from "../store/products";
 
 export default function Home() {
-  const products = useSelector(featuredProductsSelector);
+  const products = useSelector(featuredProductsSelector(6));
 
   return (
     <div className="">
