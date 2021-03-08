@@ -25,7 +25,7 @@ export default function Store() {
               ))
             : Array(12)
                 .fill(0)
-                .map((_) => <ProductCard product={{}} loading />)}
+                .map((_, i) => <ProductCard key={i} product={{}} loading />)}
         </div>
       </section>
     </>
