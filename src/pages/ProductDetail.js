@@ -7,6 +7,7 @@ import { addOrUpdate } from "../store/cart";
 import InputCounter from "../components/InputCounter";
 import Loading from "../components/Loading";
 import NotFound from "../components/NotFound";
+import { humanReadable } from "../utils/humanReadableNumber";
 
 export default function ProductDetail() {
   const history = useHistory();
@@ -14,7 +15,7 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
 
-  const product = useSelector(productSelector(parseInt(productId, 10)));
+  const product = useSelector(productSelector(productId));
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,7 +23,7 @@ export default function ProductDetail() {
   }
 
   if (!product) return <Loading />;
-  if (product === -1) return <NotFound />;
+  if (product === -1) return <NotFound title="Product Not Found" />;
 
   return (
     <>
