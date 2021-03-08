@@ -3,12 +3,21 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
+import db from "../api/firestore";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    const products = await response.json();
+    const response = await db.collection("products").get();
+
+    const products = [];
+    response.forEach((doc) => {
+      const product = doc.data();
+      const title = product.title.trim().split(" ").join("-");
+      product.id = `${title}.${doc.id}`;
+      products.push(product);
+    });
+
     return products;
   }
 );
@@ -44,11 +53,11 @@ export const productsSelector = createSelector(
   (products) => products
 );
 
-export const featuredProductsSelector = createSelector(
-  (state) => state.products,
-  // hard coded 6 products
-  (products) => products.data?.slice(0, 6)
-);
+export const featuredProductsSelector = (num) =>
+  createSelector(
+    (state) => state.products,
+    (products) => products.data?.slice(0, num)
+  );
 
 export const productSelector = (productId) =>
   createSelector(
@@ -59,7 +68,5 @@ export const productSelector = (productId) =>
       return products.data?.find((product) => product.id === productId) || -1;
     }
   );
-
-// export const { getProductById } = productSlice.actions;
 
 export default productSlice.reducer;
