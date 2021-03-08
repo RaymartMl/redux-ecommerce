@@ -13,6 +13,7 @@ import InputCounter from "../components/InputCounter";
 import { removeProduct } from "../store/cart";
 import Loading from "../components/Loading";
 import NotFound from "../components/NotFound";
+import { humanReadable } from "../utils/humanReadableNumber";
 
 export default function Cart() {
   const products = useSelector(getCartProducts);
@@ -62,7 +63,7 @@ export default function Cart() {
 
         <div className="sticky bottom-0 left-0 flex flex-col sm:flex-row items-center justify-between w-full  bg-white p-5 sm:rounded md:p-10">
           <p className="text-lg font-bold mb-4 sm:mb-0">
-            Total: ₱ {grossPrice}
+            Total: ₱ {humanReadable(grossPrice)}
           </p>
           <div className="space-x-4">
             <button className="p-4 px-8 tracking-wider bg-black border-2 border-black rounded text-offWhite hover:border-primary hover:bg-primary">
@@ -113,7 +114,7 @@ function CartProduct({ product, quantity }) {
         </Link>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <p className="text-sm "> ₱ {product.price}</p>
+        <p className="text-sm "> ₱ {humanReadable(product.price)}</p>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <form onSubmit={handleSubmit}>
@@ -125,7 +126,7 @@ function CartProduct({ product, quantity }) {
         </form>
       </td>
       <td className="px-6 py-4 text-sm text-black whitespace-nowrap">
-        ₱ {totalPrice}
+        ₱ {humanReadable(totalPrice)}
       </td>
       <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
         <button

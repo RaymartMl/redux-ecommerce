@@ -4,6 +4,7 @@ import { BsImage } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addOrUpdate } from "../store/cart";
+import { humanReadable } from "../utils/humanReadableNumber";
 
 export default function ProductCard({ product, className, loading }) {
   const dispatch = useDispatch();
@@ -16,11 +17,11 @@ export default function ProductCard({ product, className, loading }) {
         <ProductSkeleton />
       ) : (
         <>
-          <div className="relative m-4">
+          <div className="relative">
             <img
               src={product.image}
               alt="product"
-              className="mx-auto transform rounded-t h-60 max-w-full group-hover:scale-105"
+              className="mx-auto m-4 transform rounded-t h-60 max-w-full group-hover:scale-105"
             />
             <button
               onClick={(e) => {
@@ -41,7 +42,7 @@ export default function ProductCard({ product, className, loading }) {
               {product.title}
             </p>
             <p className="inline-block mx-auto border-b-2 border-primary">
-              ₱ {product.price}
+              ₱ {humanReadable(product.price)}
             </p>
           </div>
         </>
@@ -53,9 +54,9 @@ export default function ProductCard({ product, className, loading }) {
 function ProductSkeleton() {
   return (
     <div className="animate-pulse">
-      <BsImage className="my-8 mx-auto text-primary" size="3rem" />
+      <BsImage className="my-10 mx-auto text-primary" size="5rem" />
 
-      <div className="px-6 py-8">
+      <div className="px-6 py-14">
         <div className="h-4 bg-primary rounded mb-4"></div>
         <div className="h-4 bg-primary rounded"></div>
       </div>
