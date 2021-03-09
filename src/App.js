@@ -28,7 +28,7 @@ export default function App() {
               type === "default" && "text-gray"
             } text-sm font-medium  block p-3 `
           }
-          autoClose={3000}
+          autoClose={2000}
         />
         <Switch>
           <Route exact path="/">
