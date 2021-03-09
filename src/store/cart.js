@@ -1,10 +1,11 @@
-// cart -> products + quantity
-
 import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { getLocalStorage, updateLocalStorage } from "../utils/localStorage";
+
+const initialState = getLocalStorage("cart", []);
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: [],
+  initialState,
   reducers: {
     addOrUpdate(cart, action) {
       const { productId, quantity } = action.payload;
@@ -17,11 +18,16 @@ const cartSlice = createSlice({
       } else {
         cart[isProduct].quantity += quantity;
       }
+
+      updateLocalStorage("cart", cart);
     },
 
     removeProduct(cart, action) {
       const { productId } = action.payload;
-      return cart.filter((product) => product.productId !== productId);
+      cart = cart.filter((product) => product.productId !== productId);
+      updateLocalStorage("cart", cart);
+
+      return cart;
     },
   },
 });
