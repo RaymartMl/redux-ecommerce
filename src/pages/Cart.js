@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   addOrUpdate,
   getCartProducts,
@@ -91,10 +92,17 @@ function CartProduct({ product, quantity }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    quantityDifference &&
+    if (quantityDifference) {
       dispatch(
         addOrUpdate({ productId: product.id, quantity: quantityDifference })
       );
+      toast("Quantity Updated", { toastId: product.id });
+    }
+  }
+
+  function handleDelete() {
+    dispatch(removeProduct({ productId: product.id }));
+    toast.error("Product Removed in Cart");
   }
   return (
     <tr className="px-6 py-4">
@@ -131,7 +139,7 @@ function CartProduct({ product, quantity }) {
       <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
         <button
           className="focus:outline-none hover:text-primary"
-          onClick={() => dispatch(removeProduct({ productId: product.id }))}
+          onClick={handleDelete}
         >
           <BiTrash className="inline-block" size="1.25rem" />
         </button>

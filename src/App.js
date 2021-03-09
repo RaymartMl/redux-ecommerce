@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProductDetail from "./pages/ProductDetail";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./store/products";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -20,6 +22,14 @@ export default function App() {
   return (
     <Router>
       <Layout>
+        <ToastContainer
+          bodyClassName={({ type }) =>
+            `${
+              type === "default" && "text-gray"
+            } text-sm font-medium  block p-3 `
+          }
+          autoClose={3000}
+        />
         <Switch>
           <Route exact path="/">
             <Home />

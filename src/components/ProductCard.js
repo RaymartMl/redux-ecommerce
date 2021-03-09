@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsImage } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addOrUpdate } from "../store/cart";
 import { humanReadable } from "../utils/humanReadableNumber";
+import { toast } from "react-toastify";
 
 export default function ProductCard({ product, className, loading }) {
   const dispatch = useDispatch();
+  const [addCartDisable, setAddCartDisable] = useState(false);
+
+  function handleAddCart(e) {
+    e.preventDefault();
+    dispatch(addOrUpdate({ productId: product.id, quantity: 1 }));
+
+    toast("Product Added to Cart", {
+      onOpen: () => setAddCartDisable(true),
+      onClose: () => setAddCartDisable(false),
+    });
+  }
   return (
     <Link
       to={`/product/${product.id}`}
@@ -24,11 +36,11 @@ export default function ProductCard({ product, className, loading }) {
               className="mx-auto m-4 transform rounded-t h-60 max-w-full group-hover:scale-105"
             />
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(addOrUpdate({ productId: product.id, quantity: 1 }));
-              }}
-              className="absolute w-full focus:outline-none left-0 right-0 justify-between hidden px-10 py-5 text-black transition bg-white  top-52 group-hover:flex"
+              disabled={addCartDisable}
+              onClick={handleAddCart}
+              className={`
+                ${addCartDisable && "cursor-not-allowed"}
+                absolute w-full focus:outline-none left-0 right-0 justify-between hidden px-10 py-5 text-black transition bg-white  top-52 group-hover:flex`}
             >
               <p className="text-primary">Add to Cart</p>
               <FiShoppingCart

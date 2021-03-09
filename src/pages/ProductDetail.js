@@ -8,18 +8,25 @@ import InputCounter from "../components/InputCounter";
 import Loading from "../components/Loading";
 import NotFound from "../components/NotFound";
 import { humanReadable } from "../utils/humanReadableNumber";
+import { toast } from "react-toastify";
 
 export default function ProductDetail() {
   const history = useHistory();
   const { productId } = useParams();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [addCartDisable, setAddCartDisable] = useState(false);
 
   const product = useSelector(productSelector(productId));
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(addOrUpdate({ productId: product.id, quantity }));
+    setQuantity(1);
+    toast("Product Added to Cart", {
+      onOpen: () => setAddCartDisable(true),
+      onClose: () => setAddCartDisable(false),
+    });
   }
 
   if (!product) return <Loading />;
@@ -66,8 +73,11 @@ export default function ProductDetail() {
                     noSubmit
                   />
                   <button
+                    disabled={addCartDisable}
                     type="submit"
-                    className="p-4 tracking-wider text-offWhite border-2 border-black hover:border-primary bg-black rounded hover:bg-primary"
+                    className={`
+                    ${addCartDisable && "cursor-not-allowed"} 
+                    p-4 tracking-wider text-offWhite border-2 border-black hover:border-primary bg-black  rounded hover:bg-primary`}
                   >
                     Add to Cart
                   </button>
