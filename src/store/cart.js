@@ -29,6 +29,11 @@ const cartSlice = createSlice({
 
       return cart;
     },
+
+    removeAllProducts() {
+      updateLocalStorage("cart", []);
+      return [];
+    },
   },
 });
 
@@ -89,5 +94,9 @@ export const getGrossPrice = createSelector(
   }
 );
 
-export const { addOrUpdate, removeProduct } = cartSlice.actions;
+export const {
+  addOrUpdate,
+  removeProduct,
+  removeAllProducts,
+} = cartSlice.actions;
 export default cartSlice.reducer;

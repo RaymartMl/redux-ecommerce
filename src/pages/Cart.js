@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   addOrUpdate,
   getCartProducts,
   getGrossPrice,
   getTotalPrice,
+  removeAllProducts,
 } from "../store/cart";
 
 import InputCounter from "../components/InputCounter";
@@ -17,8 +18,17 @@ import NotFound from "../components/NotFound";
 import { humanReadable } from "../utils/humanReadableNumber";
 
 export default function Cart() {
+  const dispatch = useDispatch();
   const products = useSelector(getCartProducts);
   const grossPrice = useSelector(getGrossPrice);
+
+  const history = useHistory();
+
+  function handleCheckout() {
+    dispatch(removeAllProducts());
+    history.push("/");
+    toast("Checkout Flow is not yet Implemented!");
+  }
 
   if (products === -1) return <Loading />;
   if (!products.length) return <NotFound title="No Product in Cart." />;
@@ -67,7 +77,10 @@ export default function Cart() {
             Total: ₱ {humanReadable(grossPrice)}
           </p>
           <div className="space-x-4">
-            <button className="p-4 px-8 tracking-wider bg-black border-2 border-black rounded text-offWhite hover:border-primary hover:bg-primary">
+            <button
+              onClick={handleCheckout}
+              className="p-4 px-8 tracking-wider bg-black border-2 border-black rounded text-offWhite hover:border-primary hover:bg-primary"
+            >
               Checkout
             </button>
             <Link
