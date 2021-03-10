@@ -57,7 +57,7 @@ export default function ProductDetail() {
               </div>
               <div className="flex flex-col md:flex-row items-center  justify-around">
                 <p className="text-xl mb-4 md:mb-0  font-bold self-center">
-                  ₱{humanReadable(product.price)}
+                  ₱ {humanReadable(product.price)}
                 </p>
                 <form
                   className="space-x-4 flex items-center"
