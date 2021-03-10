@@ -5,7 +5,12 @@ export default function Footer() {
     <footer className="flex-shrink p-10 pb-5 tracking-wider text-center text-black">
       <p>
         Made with ❤️ by{" "}
-        <a href="#example" className="border-b-2 border-primary">
+        <a
+          href="https://www.github.com"
+          target="_blank"
+          rel="noreferrer"
+          className="border-b-2 border-primary"
+        >
           Raymart Balaguer
         </a>
       </p>
