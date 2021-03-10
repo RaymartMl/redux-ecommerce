@@ -11,10 +11,10 @@ export default function Header() {
   const currentUrl = useLocation().pathname;
   const productQuantity = useSelector(getCartQuantities);
   return (
-    <header className="px-20 py-10">
+    <header className="md:px-20 px-10 py-10">
       <div className="container flex justify-between mx-auto">
         <Link to="/" className="font-bold text-primary">
-          Logo
+          Redux ECommerce
         </Link>
         <div className="space-x-5">
           <Link to="/" className={currentUrl === "/" ? active : others}>
