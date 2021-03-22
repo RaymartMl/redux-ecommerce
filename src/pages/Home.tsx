@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductCard from "../components/ProductCard";
+import ProductCard, { ProductCardSkeleton } from "../components/ProductCard";
 import { Link } from "react-router-dom";
 import { BiDownArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
@@ -10,7 +10,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const products = useSelector(featuredProductsSelector(6));
 
-  function handleEmailSubscribe(e) {
+  function handleEmailSubscribe(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setEmail("");
@@ -67,9 +67,7 @@ export default function Home() {
                 ))
               : Array(6)
                   .fill(0)
-                  .map((_, index) => (
-                    <ProductCard key={index} product={{}} loading />
-                  ))}
+                  .map((_, index) => <ProductCardSkeleton key={index} />)}
           </div>
           <Link
             to="/store"
