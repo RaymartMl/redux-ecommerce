@@ -2,17 +2,26 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
+  SerializedError,
 } from "@reduxjs/toolkit";
 import db from "../api/firestore";
+import { Product } from "../interfaces/product";
+import { RootState } from "./store";
+
+interface ProductsSliceState {
+  loading: "idle" | "pending" | "fulfilled" | "error";
+  data: Product[];
+  error: SerializedError | null;
+}
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const response = await db.collection("products").get();
+    const products: Product[] = [];
 
-    const products = [];
     response.forEach((doc) => {
-      const product = doc.data();
+      const product = doc.data() as Product;
       const title = product.title.trim().split(" ").join("-");
       product.id = `${title}.${doc.id}`;
       products.push(product);
@@ -24,47 +33,50 @@ export const fetchProducts = createAsyncThunk(
 
 const productSlice = createSlice({
   name: "products",
-  initialState: { loading: "idle", data: [], error: null },
+  initialState: {
+    loading: "idle",
+    data: [],
+    error: null,
+  } as ProductsSliceState,
   reducers: {},
-  extraReducers: {
-    [fetchProducts.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchProducts.pending, (state, action) => {
       if (state.loading === "idle") {
         state.loading = "pending";
       }
-    },
-    [fetchProducts.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "fulfilled";
         state.data = action.payload;
       }
-    },
-    [fetchProducts.rejected]: (state, action) => {
+    });
+    builder.addCase(fetchProducts.rejected, (state, action) => {
       if (state.loading === "pending") {
         state.loading = "error";
         state.data = [];
         state.error = action.error;
       }
-    },
+    });
   },
 });
 
 export const productsSelector = createSelector(
-  (state) => state.products,
+  (state: RootState) => state.products,
   (products) => products
 );
 
-export const featuredProductsSelector = (num) =>
+export const featuredProductsSelector = (num: number) =>
   createSelector(
-    (state) => state.products,
+    (state: RootState) => state.products,
     (products) => products.data?.slice(0, num)
   );
 
-export const productSelector = (productId) =>
+export const productSelector = (productId: string) =>
   createSelector(
-    (state) => state.products,
+    (state: RootState) => state.products,
     (products) => {
       if (!products.data.length) return;
-
       return products.data?.find((product) => product.id === productId) || -1;
     }
   );
