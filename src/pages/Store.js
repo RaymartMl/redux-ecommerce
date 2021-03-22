@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ProductCard, { ProductCardSkeleton } from "../components/ProductCard";
+import ProductCard from "../components/ProductCard";
 import { productsSelector } from "../store/products";
 
 export default function Store() {
@@ -25,7 +25,7 @@ export default function Store() {
               ))
             : Array(12)
                 .fill(0)
-                .map((_, i) => <ProductCardSkeleton key={i} />)}
+                .map((_, i) => <ProductCard key={i} product={{}} loading />)}
         </div>
       </section>
     </>

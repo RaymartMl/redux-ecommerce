@@ -16,7 +16,6 @@ import { removeProduct } from "../store/cart";
 import Loading from "../components/Loading";
 import NotFound from "../components/NotFound";
 import { humanReadable } from "../utils/humanReadableNumber";
-import { Product } from "../interfaces/product";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -97,19 +96,14 @@ export default function Cart() {
   );
 }
 
-interface CartProductProps {
-  product: Product;
-  quantity: number;
-}
-
-function CartProduct({ product, quantity }: CartProductProps) {
+function CartProduct({ product, quantity }) {
   const dispatch = useDispatch();
   const totalPrice = useSelector(getTotalPrice(product.id));
 
   const [value, setValue] = useState(quantity);
   const quantityDifference = value - quantity;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e) {
     e.preventDefault();
     if (quantityDifference) {
       dispatch(

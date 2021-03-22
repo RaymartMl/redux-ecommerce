@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-interface NotfoundProps {
-  title?: string;
-}
-
-export default function NotFound({ title }: NotfoundProps) {
+export default function NotFound({ title }) {
   return (
     <div className="text-center py-20">
       <h1 className="text-black text-6xl mb-12">{title || "Page Not Found"}</h1>

@@ -1,8 +1,8 @@
-export function getLocalStorage(key: string, defaultValue: any) {
+export function getLocalStorage(key, defaultValue) {
   const value = window.localStorage.getItem(key);
   return value !== null ? JSON.parse(value) : defaultValue;
 }
 
-export function updateLocalStorage(key: string, value: any) {
+export function updateLocalStorage(key, value) {
   window.localStorage.setItem(key, JSON.stringify(value));
 }

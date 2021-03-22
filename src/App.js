@@ -24,9 +24,9 @@ export default function App() {
       <Layout>
         <ToastContainer
           className="mt-14 md:mt-16"
-          bodyClassName={(param) =>
+          bodyClassName={({ type }) =>
             `${
-              param?.type === "default" && "text-gray"
+              type === "default" && "text-gray"
             } text-sm font-medium  block p-3 `
           }
           autoClose={2000}

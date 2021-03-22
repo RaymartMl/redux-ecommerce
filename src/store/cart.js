@@ -1,10 +1,7 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { CartSliceState } from "../interfaces/cart";
-import { ensure } from "../utils/ensure";
 import { getLocalStorage, updateLocalStorage } from "../utils/localStorage";
-import { RootState } from "./store";
 
-const initialState = getLocalStorage("cart", []) as CartSliceState;
+const initialState = getLocalStorage("cart", []);
 
 const cartSlice = createSlice({
   name: "cart",
@@ -41,14 +38,14 @@ const cartSlice = createSlice({
 });
 
 export const getCartProducts = createSelector(
-  (state: RootState) => state.cart,
-  (state: RootState) => state.products,
+  (state) => state.cart,
+  (state) => state.products,
   (cart, products) => {
     if (products.loading !== "fulfilled") return -1;
 
     return cart.map((listing) => ({
-      product: ensure(
-        products.data?.find((product) => product.id === listing.productId)
+      product: products.data?.find(
+        (product) => product.id === listing.productId
       ),
       quantity: listing.quantity,
     }));
@@ -56,36 +53,35 @@ export const getCartProducts = createSelector(
 );
 
 export const getCartQuantities = createSelector(
-  (state: RootState) => state.cart,
+  (state) => state.cart,
   (cart) => cart.length
 );
 
-export const getTotalPrice = (productId: string) =>
+export const getTotalPrice = (productId) =>
   createSelector(
-    (state: RootState) => state.cart,
-    (state: RootState) => state.products,
+    (state) => state.cart,
+    (state) => state.products,
     (cart, products) => {
-      const unitPrice = ensure(
-        products.data?.find((product) => product.id === productId)
+      const unitPrice = products.data?.find(
+        (product) => product.id === productId
       ).price;
 
-      const quantity = ensure(
-        cart.find((product) => product.productId === productId)
-      ).quantity;
+      const quantity = cart.find((product) => product.productId === productId)
+        .quantity;
 
       return Math.round(unitPrice * quantity);
     }
   );
 
 export const getGrossPrice = createSelector(
-  (state: RootState) => state.cart,
-  (state: RootState) => state.products,
+  (state) => state.cart,
+  (state) => state.products,
   (cart, products) => {
     if (products.loading !== "fulfilled") return 0;
 
     const listing = cart.map((listing) => ({
-      product: ensure(
-        products.data?.find((product) => product.id === listing.productId)
+      product: products.data?.find(
+        (product) => product.id === listing.productId
       ),
       quantity: listing.quantity,
     }));

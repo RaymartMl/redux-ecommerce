@@ -12,19 +12,16 @@ import { toast } from "react-toastify";
 
 export default function ProductDetail() {
   const history = useHistory();
-  const { productId } = useParams<{ productId: string }>();
+  const { productId } = useParams();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [addCartDisable, setAddCartDisable] = useState(false);
 
   const product = useSelector(productSelector(productId));
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e) {
     e.preventDefault();
-
-    // @ts-ignore
     dispatch(addOrUpdate({ productId: product.id, quantity }));
-
     setQuantity(1);
     toast("Product Added to Cart", {
       onOpen: () => setAddCartDisable(true),
