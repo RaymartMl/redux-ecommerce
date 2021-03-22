@@ -27,7 +27,7 @@ export default function Cart() {
   function handleCheckout() {
     dispatch(removeAllProducts());
     history.push("/");
-    toast("Checkout Flow is not yet Implemented!");
+    toast("Checkout Successful 🎉");
   }
 
   if (products === -1) return <Loading />;

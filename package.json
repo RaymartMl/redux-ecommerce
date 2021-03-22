@@ -7,9 +7,6 @@
     "@reduxjs/toolkit": "^1.5.0",
     "@tailwindcss/line-clamp": "^0.2.0",
     "@tailwindcss/postcss7-compat": "^2.0.2",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "autoprefixer": "^9",
     "firebase": "^8.2.10",
     "postcss": "^7",
@@ -23,6 +20,11 @@
     "redux": "^4.0.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "web-vitals": "^1.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10"
   },
   "scripts": {
     "start": "BROWSER=none craco start",

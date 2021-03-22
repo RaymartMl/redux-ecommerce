@@ -23,6 +23,7 @@ export default function App() {
     <Router>
       <Layout>
         <ToastContainer
+          className="mt-14 md:mt-16"
           bodyClassName={({ type }) =>
             `${
               type === "default" && "text-gray"
